@@ -1,21 +1,33 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
+
+val apikeyPropertiesFile = rootProject.file("apikey.properties")
+val apikeyProperties = Properties()
+apikeyProperties.load(FileInputStream(apikeyPropertiesFile))
 
 android {
     namespace = "com.sergionaude.marvelheroes"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.sergionaude.marvelheroes"
         minSdk = 25
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "MARVEL_KEY", "\"${apikeyProperties["MARVEL_KEY"]}\"")
+        buildConfigField("String", "MARVEL_SECRET", "\"${apikeyProperties["MARVEL_SECRET"]}\"")
     }
 
     buildTypes {
@@ -36,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -49,6 +62,25 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //navigation compose
+    implementation (libs.androidx.navigation.compose)
+    //coil
+    implementation (libs.coil.compose)
+    //viewModel lifecycle
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
+    //retrofit
+    implementation (libs.retrofit)
+    //gson
+    implementation (libs.converter.gson)
+    //hilt
+    implementation (libs.hilt.android)
+    kapt (libs.hilt.compiler)
+    //room
+    implementation (libs.androidx.room.runtime)
+    kapt (libs.androidx.room.compiler)
+    implementation (libs.androidx.room.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
