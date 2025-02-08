@@ -8,27 +8,35 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sergionaude.marvelheroes.viewmodel.LibraryViewModel
 import com.sergionaude.marvelheroes.views.commons.CharactersBottomBar
 import com.sergionaude.marvelheroes.views.screens.CollectionScreen
 import com.sergionaude.marvelheroes.views.screens.LibraryScreen
 
 @Composable
-fun NavCompose(){
+fun NavCompose(
+    navigationController: NavHostController,
+    libraryViewModel: LibraryViewModel
+){
     val navController = rememberNavController()
-    CharactersScaffold(navigationController = navController)
+    CharactersScaffold(navigationController = navController, libraryViewModel = libraryViewModel)
 }
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun CharactersScaffold(navigationController: NavHostController){
+fun CharactersScaffold(navigationController: NavHostController, libraryViewModel: LibraryViewModel){
     val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         scaffoldState = scaffoldState,
         bottomBar = { CharactersBottomBar(navHostController = navigationController) }
-    ) {
+    ) { paddingValues ->
         NavHost(navController = navigationController, startDestination = Destination.Library.route){
             composable(route = Destination.Library.route){
-                LibraryScreen()
+                LibraryScreen(
+                    viewModel =  libraryViewModel,
+                    navHostController = navigationController,
+                    paddingValues = paddingValues
+                )
             }
             composable(route = Destination.Collection.route) {
                 CollectionScreen()
