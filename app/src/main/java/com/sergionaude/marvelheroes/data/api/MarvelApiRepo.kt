@@ -10,7 +10,7 @@ class MarvelApiRepo(private val apiMarvel: MarvelAPI) {
 
     val characters = MutableStateFlow<NetworkResult<CharactersApiResponse>>(NetworkResult.Initial())
 
-    suspend fun query(query: String) {
+     fun query(query: String) {
         characters.value = NetworkResult.Loading()
 
         apiMarvel.getCharacters(name = query)

@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface MarvelAPI {
 
     @GET("characters")
-    suspend fun getCharacters(@Query("nameStartsWith") name: String): Call<CharactersApiResponse>
+     fun getCharacters(@Query("nameStartsWith") name: String): Call<CharactersApiResponse>
 }
