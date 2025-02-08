@@ -1,4 +1,4 @@
-package com.sergionaude.marvelheroes.model
+package com.sergionaude.marvelheroes.data.model
 
 data class CharacterResultUrl(
     val type: String?,

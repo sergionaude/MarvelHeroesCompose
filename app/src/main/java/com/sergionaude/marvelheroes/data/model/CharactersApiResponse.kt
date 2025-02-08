@@ -1,6 +1,6 @@
-package com.sergionaude.marvelheroes.model
+package com.sergionaude.marvelheroes.data.model
 
-data class Characters(
+data class CharactersApiResponse(
     val code: String?,
     val status: String?,
     val attributionText: String?,
