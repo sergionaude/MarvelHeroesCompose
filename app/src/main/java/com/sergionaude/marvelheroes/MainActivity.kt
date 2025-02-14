@@ -17,12 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.sergionaude.marvelheroes.navigation.CharactersScaffold
 import com.sergionaude.marvelheroes.ui.theme.MarvelHeroesTheme
+import com.sergionaude.marvelheroes.viewmodel.CollectionViewModel
 import com.sergionaude.marvelheroes.viewmodel.LibraryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     val lvm by viewModels<LibraryViewModel>()
+    val cvm by viewModels<CollectionViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,8 @@ class MainActivity : ComponentActivity() {
 
                     CharactersScaffold(
                         navigationController = navController,
-                        libraryViewModel = lvm
+                        libraryViewModel = lvm,
+                        collectionViewModel = cvm
                     )
                 }
             }

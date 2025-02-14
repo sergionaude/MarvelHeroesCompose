@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sergionaude.marvelheroes.viewmodel.CollectionViewModel
 import com.sergionaude.marvelheroes.viewmodel.LibraryViewModel
 import com.sergionaude.marvelheroes.views.commons.CharactersBottomBar
 import com.sergionaude.marvelheroes.views.screens.CharacterDetailScreen
@@ -17,7 +18,10 @@ import com.sergionaude.marvelheroes.views.screens.CollectionScreen
 import com.sergionaude.marvelheroes.views.screens.LibraryScreen
 
 @Composable
-fun CharactersScaffold(navigationController: NavHostController, libraryViewModel: LibraryViewModel){
+fun CharactersScaffold(
+    navigationController: NavHostController,
+    libraryViewModel: LibraryViewModel,
+    collectionViewModel: CollectionViewModel){
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
 
@@ -52,6 +56,7 @@ fun CharactersScaffold(navigationController: NavHostController, libraryViewModel
                     libraryViewModel.retrieveSingleCharacter(id = id)
                     CharacterDetailScreen(
                         lvm = libraryViewModel,
+                        cvm = collectionViewModel,
                         paddingValues = paddingValues,
                         navController = navigationController
                     )
