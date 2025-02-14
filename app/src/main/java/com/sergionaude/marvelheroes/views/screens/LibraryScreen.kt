@@ -115,10 +115,10 @@ fun CharacterCardView(charactersData: CharacterResult, navHostController: NavHos
     val description = charactersData.description
     val context = LocalContext.current
     val id = charactersData.id
-    val redirection: () -> Unit =
+    val redirection =
         {
-            if (charactersData.id != null) {
-                navHostController.navigate(Destination.CharacterDetail.createRoute(characterId = charactersData.id))
+            if (id != null) {
+                navHostController.navigate(Destination.CharacterDetail.createRoute(characterId = id))
             } else {
                 Toast.makeText(context, "Character id is null", Toast.LENGTH_SHORT).show()
             }
@@ -131,7 +131,7 @@ fun CharacterCardView(charactersData: CharacterResult, navHostController: NavHos
             .fillMaxWidth()
             .wrapContentHeight()
             .clickable {
-                redirection
+                redirection()
             }
     ) {
        Row(

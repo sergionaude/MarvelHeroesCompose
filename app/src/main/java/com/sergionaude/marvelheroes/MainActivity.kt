@@ -15,28 +15,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.sergionaude.marvelheroes.navigation.NavCompose
+import com.sergionaude.marvelheroes.navigation.CharactersScaffold
 import com.sergionaude.marvelheroes.ui.theme.MarvelHeroesTheme
 import com.sergionaude.marvelheroes.viewmodel.LibraryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    val lvm by viewModels<LibraryViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val navController = rememberNavController()
-            val lvm by viewModels<LibraryViewModel>()
-
             MarvelHeroesTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ){
-                    NavCompose(
+                    val navController = rememberNavController()
+
+                    CharactersScaffold(
                         navigationController = navController,
-                        libraryViewModel = lvm)
+                        libraryViewModel = lvm
+                    )
                 }
             }
         }
